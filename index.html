@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8"/>
+    <script defer src="https://unpkg.com/alpinejs@3.10.3/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Vous êtes le héro</title>
+</head>
+<main>
+    <aside x-data="rollBar" class="sidebar">
+        <div @click="rollD6" class="component">
+            <img id="d6" :src="`img/d6-${d6}.svg`" title="die1" alt="d6" />
+        </div>
+        <div @click="rollDD6" class="component">
+            <img id="dd61" :src="`img/d6-${dd6[0]}.svg`" title="die1" alt="dd61" />
+            <img id="dd62" :src="`img/d6-${dd6[1]}.svg`" title="die2" alt="dd62" />
+        </div>
+    </aside>
+    <article>
+        <div class="character-sheet">
+            <div class="stats">
+                <div class="stat-container">
+                    <label for="end">END</label>
+                    <input type="number" id="end" min="0" max="100" placeholder="0" />
+                </div>
+                <div class="stat-container">
+                    <label for="hab">HAB</label>
+                    <input type="number" id="hab" min="0" max="100" placeholder="0" />
+                </div>
+                <div class="stat-container">
+                    <label for="luck">LUCK</label>
+                    <input type="number" id="luck" min="0" max="100" placeholder="0" />
+                </div>
+                <div class="stat-container">
+                    <label for="gold">GOLD</label>
+                    <input type="number" id="gold" min="0" max="100" placeholder="0" />
+                </div>
+            </div>
+            <label for="notes">Notes</label>
+            <textarea rows="10">Notes / Inventory / Potions</textarea>
+            <div class="fight">
+                <span>Monster</span>
+                <div class="monster-stat">
+                    <label for="mend">END</label>
+                    <input type="number" id="mend" min="0" max="100" placeholder="0" />
+                </div>
+                <div class="monster-stat">
+                    <label for="mhab">HAB</label>
+                    <input type="number" id="mhab" min="0" max="100" placeholder="0" />
+                </div>
+            </div>
+        </div>
+    </article>
+</main>
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('rollBar', () => ({
+            d6: 1,
+            dd6: [1, 1],
+            d20: 1,
+            rollD6() {
+                this.d6 = Math.floor(Math.random() * 6 + 1);
+            },
+            rollDD6() {
+                this.dd6[0] = Math.floor(Math.random() * 6 + 1);
+                this.dd6[1] = Math.floor(Math.random() * 6 + 1);
+            }
+        }));
+    });
+</script>
+</html>
